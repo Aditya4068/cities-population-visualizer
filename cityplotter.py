@@ -1,4 +1,3 @@
-# don't worry about this import! It just allows us to grab all the files in the countries/ directory
 import os 
 
 from simpleimage import SimpleImage
@@ -44,26 +43,6 @@ def plot_country(visualization, filename):
             
             plot_one_city(visualization, lat, lon)
 
-"""
-IMPORTANT FUNCTIONS
-"""
-
-def main():
-    # create a blank image on which we'll plot cities
-    visualization = SimpleImage.blank(
-        VISUALIZATION_WIDTH, VISUALIZATION_HEIGHT
-    )
-
-    # get which countries should be plotted from the user
-    countries = get_countries()
-
-    # iterate through each of the countries and plot it
-    for country in countries:
-        country_filename = COUNTRY_DIRECTORY + country + ".csv"
-        plot_country(visualization, country_filename)
-
-    # once we're done with all the countries, show the image
-    visualization.show()
 
 
 def get_countries():
@@ -142,6 +121,28 @@ def latitude_to_y(latitude):
     Scales a latitude coordinate to a coordinate in the visualization email
     """
     return VISUALIZATION_HEIGHT * (1.0 - (latitude - MIN_LATITUDE) / (MAX_LATITUDE - MIN_LATITUDE))
+
+"""
+MAIN FUNCTION
+"""
+
+def main():
+    # create a blank image on which we'll plot cities
+    visualization = SimpleImage.blank(
+        VISUALIZATION_WIDTH, VISUALIZATION_HEIGHT
+    )
+
+    # get which countries should be plotted from the user
+    countries = get_countries()
+
+    # iterate through each of the countries and plot it
+    for country in countries:
+        country_filename = COUNTRY_DIRECTORY + country + ".csv"
+        plot_country(visualization, country_filename)
+
+    # once we're done with all the countries, show the image
+    visualization.show()
+
 
 if __name__ ==  "__main__":
     main()
